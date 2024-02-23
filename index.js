@@ -32,7 +32,7 @@ app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
 
 app.get("/", (req,res) =>{
-    res.sendFile(__dirname+'/index.html');
+    res.sendFile(__dirname+'/Pages/index.html');
 
 });
 app.post("/register",async(req,res)=>{
@@ -44,16 +44,20 @@ app.post("/register",async(req,res)=>{
             email,
             password,
         });
-       await registrationdata.save();
+     registrationdata.save();
        res.redirect("/sucess");
 
 }
     catch (error) {
         console.log(error);
+        res.redirect("/error");
        }});
 
 app.get("/sucess",(req,res) =>{
-    res.sendFile(__dirname + "/sucessfullpage.html");
+    res.sendFile(__dirname + "/Pages/sucessfullpage.html");
+})
+app.get("/error",(req,res) =>{
+    res.sendFile(__dirname + "/Pages/errorpage.html");
 })
 
 app.listen(port,function(){
